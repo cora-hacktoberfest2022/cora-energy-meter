@@ -4,6 +4,12 @@
   "main": "index.js",
   "repository": "https://github.com/cora-hacktoberfest2022/cora-energy-meter.git",
   "license": "MIT",
+  "scripts": {
+    "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --respawn --no-notify src/index.ts",
+    "test": "jest",
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
+    "start": "node dist"
+  },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
