@@ -18,8 +18,7 @@ const iot = () => {
 
   const handleMqttMessage = async (topic, message) => {
     // message is Buffer
-    Logger.debug(message.toString());
-    await client.end();
+    Logger.debug(message.toString()); // save the payload to the DB in a future implementation
   };
 
   client.on("message", handleMqttMessage);
