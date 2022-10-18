@@ -1,9 +1,9 @@
 import { Logger } from "@bristom/logger";
 import mqtt from "async-mqtt";
 
-const iot = () => {
-  const client = mqtt.connect("mqtt://test.mosquitto.org");
+const client = mqtt.connect("mqtt://test.mosquitto.org");
 
+const iot = () => {
   const initMqtt = async () => {
     Logger.debug("Starting MQTT");
     try {
@@ -24,4 +24,4 @@ const iot = () => {
   client.on("message", handleMqttMessage);
 };
 
-export default iot;
+export { iot, client };
