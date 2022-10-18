@@ -3,7 +3,7 @@ import express from "express";
 import http from "http";
 import { Server } from "socket.io";
 
-import iot from "./mqtt";
+import { iot, client } from "./mqtt";
 
 require("dotenv").config();
 
@@ -20,6 +20,22 @@ app.get("/", (req, res) => {
 io.on("connection", socket => {
   Logger.debug(`User ID ${socket.id} has connected`);
 });
+
+// Graceful shutdown process
+process.on("SIGINT", () => {
+  Logger.info("SIGINT signal received, closing all connections and listeners");
+
+  client.end();
+  server.close();
+});
+
+process.on("SIGTERM", () => {
+  Logger.info("SIGTERM signal received, closing all connections and listeners");
+
+  client.end();
+  server.close();
+});
+// Graceful shutdown process end
 
 server.listen(process.env.PORT, () => {
   Logger.debug(`listening on *:${process.env.PORT}`);
